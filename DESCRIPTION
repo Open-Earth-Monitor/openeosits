@@ -1,0 +1,64 @@
+Package: openeosits
+Type: Package
+Title: OpenEO Compliant R Backend
+Version: 0.1.0
+Authors@R:
+    c(person(given = "Brian",
+            family = "Pondi",
+            role = c("aut", "cre"),
+            email = "brian.pondi@uni-muenster.de",
+             comment = c(ORCID = "0009-0008-0367-1690")),
+      person(given = "Rolf",
+             family = "Simoes",
+             role = "ctb",
+              email = "rolf.simoes@opengeohub.org",
+              comment = c(ORCID = "0000-0003-0953-4132")),
+      person(given = "Edzer",
+             family = "Pebesma",
+             role = "ctb",
+             email = "edzer.pebesma@uni-muenster.de",
+             comment = c(ORCID = "0000-0001-8049-7069")),
+      person(given = "Gilberto",
+             family = "Camara",
+             role = "ctb",
+             email = "gilberto.camara.inpe@gmail.com",
+             comment = c(ORCID = "0000-0002-3681-487X"))
+			 )
+Description: openearthmonitor operates as an openEO-compliant back-end interfacing SITS R package.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    R6,
+    plumber,
+    dplyr,
+    base64enc,
+    jsonlite,
+    tibble,
+    rlang,
+    ids,
+    tools,
+    sf,
+    useful,
+    gdalcubes,
+    rstac
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Collate: 
+    'api_process_graphs.R'
+    'api_job.R'
+    'Parameter-class.R'
+    'Process-class.R'
+    'processes.R'
+    'math-processes.R'
+    'Router.R'
+    'api.R'
+    'Session-Class.R'
+    'Collection-class.R'
+    'ExecutableProcess-class.R'
+    'Job-class.R'
+    'ProcessGraph-class.R'
+    'SessionConfig-Class.R'
+    'error.R'
+Depends:
+    R (>= 3.6.0)
