@@ -12,13 +12,13 @@ If you want to change the source code then this approach is recommended.
 You first need to clone the repository via this command:
 
 ```bash
-git clone http://gitlab.opengeohub.org/bpondi/openearthmonitor.git
+git clone https://github.com/Open-Earth-Monitor/openeosits.git
 ```
 
 then you can change to that directory
 
 ```bash
-cd openearthmonitor
+cd openeosits
 ```
 
 Run it :
