@@ -41,6 +41,8 @@ Imports:
     sf,
     useful,
     gdalcubes,
+    sits,
+    stars,
     rstac
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
