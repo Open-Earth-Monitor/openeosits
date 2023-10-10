@@ -24,7 +24,7 @@ Authors@R:
              email = "gilberto.camara.inpe@gmail.com",
              comment = c(ORCID = "0000-0002-3681-487X"))
 			 )
-Description: openearthmonitor operates as an openEO-compliant back-end interfacing SITS R package.
+Description: openeosits operates as an openEO-compliant back-end interfacing SITS R package.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
