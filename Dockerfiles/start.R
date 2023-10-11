@@ -1,7 +1,6 @@
 # Start service
 library(openeosits)
 
-
 aws.host <-Sys.getenv("AWSHOST")
 
 if (aws.host == ""){

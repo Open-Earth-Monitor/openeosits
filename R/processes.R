@@ -5,7 +5,6 @@
 #' @import rstac
 #' @import useful
 #' @import sf
-#' @import sits
 #' @import stars
 NULL
 
@@ -301,10 +300,7 @@ save_result = Process$new(
     schema = list(type = "boolean")
   ),
   operation = function(data, format, options = NULL, job) {
-    gdalcubes_options(parallel = 8)
-    message("Data is being saved in format :")
-    message(format)
-    message("The above format is being saved")
+    message("The output is being saved...")
     job$setOutput(format)
     return(data)
   }
