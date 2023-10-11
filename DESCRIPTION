@@ -41,9 +41,11 @@ Imports:
     sf,
     useful,
     gdalcubes,
-    sits,
     stars,
-    rstac
+    rstac,
+    caret,
+    randomForest,
+    sits
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Collate: 
@@ -63,4 +65,4 @@ Collate:
     'SessionConfig-Class.R'
     'error.R'
 Depends:
-    R (>= 3.6.0)
+    R (>= 4.3.0)

@@ -285,24 +285,12 @@ addEndpoint = function() {
                          filter = TRUE)
 
 # assign data collection
-  Session$assignData(sentinel_s2_l2a_cogs)
-  Session$assignData(sentinel_s2_l2a)
-  Session$assignData(sentinel_s2_l1c)
-  Session$assignData(landsat_8_l1_c1)
+  Session$assignData(SENTINEL_2_L2A)
+
+
 # assign processes
   Session$assignProcess(load_collection)
   Session$assignProcess(save_result)
-  Session$assignProcess(filter_bands)
-  Session$assignProcess(filter_bbox)
-  Session$assignProcess(filter_spatial)
-  Session$assignProcess(filter_temporal)
-  Session$assignProcess(rename_dimension)
-  Session$assignProcess(reduce_dimension)
-  Session$assignProcess(merge_cubes)
-  Session$assignProcess(array_element)
-  Session$assignProcess(ndvi)
-  Session$assignProcess(rename_labels)
-  Session$assignProcess(run_udf)
   Session$assignProcess(min)
   Session$assignProcess(max)
   Session$assignProcess(median)
