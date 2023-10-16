@@ -105,17 +105,6 @@ NULL
 }
 
 .login_basic = function(req, res) {
-  # GDAL parameters to make accessing COGs on AWS faster
-  gdalcubes::gdalcubes_options(parallel = 8) # depends on the system
-  gdalcubes::gdalcubes_set_gdal_config("VSI_CACHE", "TRUE")
-  gdalcubes::gdalcubes_set_gdal_config("GDAL_CACHEMAX","20%")
-  gdalcubes::gdalcubes_set_gdal_config("VSI_CACHE_SIZE","5000000")
-  gdalcubes::gdalcubes_set_gdal_config("GDAL_HTTP_MULTIPLEX","YES")
-  message("GDAL commands set up to speed CoG calls")
-  gdalcubes::gdalcubes_set_gdal_config("GDAL_INGESTED_BYTES_AT_OPEN","32000")
-  gdalcubes::gdalcubes_set_gdal_config("GDAL_DISABLE_READDIR_ON_OPEN","EMPTY_DIR")
-  gdalcubes::gdalcubes_set_gdal_config("GDAL_HTTP_VERSION","2")
-  gdalcubes::gdalcubes_set_gdal_config("GDAL_HTTP_MERGE_CONSECUTIVE_RANGES","YES")
   message("log in from api.R called")
   auth = req$HTTP_AUTHORIZATION
   encoded = substr(auth,7,nchar(auth))
@@ -167,10 +156,10 @@ NULL
 
   if (class(format) == "list") {
     if (format$title == "Network Common Data Form") {
-      file = write_ncdf(job$results)
+      file = gdalcubes::write_ncdf(job$results)
     }
     else if (format$title == "GeoTiff") {
-      file = write_tif(job$results)
+      file = gdalcubes::write_tif(job$results)
     }
     else {
       throwError("FormatUnsupported")
@@ -178,10 +167,10 @@ NULL
   }
   else {
     if (format == "NetCDF") {
-      file = write_ncdf(job$results)
+      file = gdalcubes::write_ncdf(job$results)
     }
     else if (format == "GTiff") {
-      file = write_tif(job$results)
+      file = gdalcubes::write_tif(job$results)
     }
     else {
       throwError("FormatUnsupported")
@@ -286,18 +275,19 @@ addEndpoint = function() {
 
 # assign data collection
   Session$assignData(SENTINEL_2_L2A)
+  Session$assignData(sentinel_s2_l2a_cogs)
 
-
-# assign processes
+# assign data cube processes
   Session$assignProcess(load_collection)
   Session$assignProcess(save_result)
-  Session$assignProcess(min)
-  Session$assignProcess(max)
-  Session$assignProcess(median)
-  Session$assignProcess(mean)
-  Session$assignProcess(add)
-  Session$assignProcess(subtract)
-  Session$assignProcess(multiply)
-  Session$assignProcess(divide)
+
+ # assign math processes 
+  #Session$assignProcess(min)
+  #Session$assignProcess(median)
+  #Session$assignProcess(mean)
+  #Session$assignProcess(add)
+  #Session$assignProcess(subtract)
+  #Session$assignProcess(multiply)
+  #Session$assignProcess(divide)
 
 }
