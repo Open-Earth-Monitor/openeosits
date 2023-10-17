@@ -31,7 +31,7 @@ SessionConfig = function(api.port = NULL, host = NULL, aws.ipv4 = NULL) {
 
     id = "openeo-sits-R-backend",
     title = "openeo-sits-R-backend",
-    description = "This is an OpenEO compliant R backend interfacing with sits, stars packages and STAC API",
+    description = "This is an OpenEO compliant R backend interfacing with sits package and STAC API",
 
     links = NULL,
     demo.path = NULL,
@@ -77,7 +77,7 @@ SessionConfig = function(api.port = NULL, host = NULL, aws.ipv4 = NULL) {
         parameters = list(
           format = list(
             type = "string",
-            description = "gdalcubes collection formats"
+            description = "raster image collection formats"
           )
         )
 

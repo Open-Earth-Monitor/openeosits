@@ -29,12 +29,10 @@ schema_format <- function(type, subtype = NULL, items = NULL) {
   return(schema)
 }
 
-#' detect the number of CPU cores on the current host
-CORES <- parallel::detectCores()
 
 
 #' datacube_schema
-#' @description Return a list with datacube description and schema
+#' @description Return a list with data cube description and schema
 #'
 #' @return datacube list
 datacube_schema <- function() {
@@ -158,6 +156,57 @@ load_collection <- Process$new(
   }
 )
 
+
+
+#' data cube regularization
+ml_regularize_data_cube <- Process$new(
+  id = "ml_regularize_data_cube",
+  description = cat("Converts irregular data cubes into regular and complete data cubes in space and time, ensuring compatibility with machine learning and deep learning classification algorithms.
+  This process eliminates gaps and missing values, enabling the use of machine learning and deep learning algorithms for remote sensing data."),
+  categories = as.array("cubes", "machine learning"),
+  summary = "Converts irregular data cubes into regular data cubes",
+  parameters = list(
+    Parameter$new(
+      name = "data",
+      description = "A raster data cube.",
+      schema = list(
+        type = "object",
+        subtype = "datacube"
+      )
+    ),
+    Parameter$new(
+      name = "period",
+      description = cat("The parameter allows you to specify the time interval between images in a data cube.
+      The values for the period parameter follow the `ISO8601` time period specification format.
+      This format represents time intervals as `P[n]Y[n]M[n]D`, where `Y` represents years, `M` represents months, and `D` represents days.
+      For example, if you set the period as `P1M`, it signifies a one-month interval, while `P15D` represents a fifteen-day interval."),
+      schema = list(
+        type = "string"
+      )
+    ),
+    Parameter$new(
+      name = "period",
+      description = "Resamples the data cube to the target resolution, which can be specified either as separate values for x and y or as a single value for both axes.",
+      schema = list(
+        type = "number"
+      ),
+      optional = TRUE
+    )
+  ),
+  returns = eo_datacube,
+  operation = function(data, period, resolution = 30, job) {
+    #' detect the number of CPU cores on the current host
+    CORES <- parallel::detectCores()
+
+    #' regularize irregular data cubes using sits
+    cube <- sits::sits_regularize(cube = data,
+                                  output_dir = tempdir(),
+                                  period = period,
+                                  res = resolution,
+                                  multicores = CORES)
+    return(cube)
+  }
+)
 
 
 #' save result
