@@ -161,8 +161,8 @@ load_collection <- Process$new(
 #' data cube regularization
 ml_regularize_data_cube <- Process$new(
   id = "ml_regularize_data_cube",
-  description = cat("Converts irregular data cubes into regular and complete data cubes in space and time, ensuring compatibility with machine learning and deep learning classification algorithms.
-  This process eliminates gaps and missing values, enabling the use of machine learning and deep learning algorithms for remote sensing data."),
+  description = "Converts irregular data cubes into regular and complete data cubes in space and time, ensuring compatibility with machine learning and deep learning classification algorithms.
+  This process eliminates gaps and missing values, enabling the use of machine learning and deep learning algorithms for remote sensing data.",
   categories = as.array("cubes", "machine learning"),
   summary = "Converts irregular data cubes into regular data cubes",
   parameters = list(
@@ -176,10 +176,8 @@ ml_regularize_data_cube <- Process$new(
     ),
     Parameter$new(
       name = "period",
-      description = cat("The parameter allows you to specify the time interval between images in a data cube.
-      The values for the period parameter follow the `ISO8601` time period specification format.
-      This format represents time intervals as `P[n]Y[n]M[n]D`, where `Y` represents years, `M` represents months, and `D` represents days.
-      For example, if you set the period as `P1M`, it signifies a one-month interval, while `P15D` represents a fifteen-day interval."),
+      description = "The parameter allows you to specify the time interval between images in a data cube.The values for the period parameter follow the `ISO8601` time period specification format.This format represents time intervals as `P[n]Y[n]M[n]D`, where `Y` represents years, `M` represents months, and `D` represents days.
+      For example, if you set the period as `P1M`, it signifies a one-month interval, while `P15D` represents a fifteen-day interval.",
       schema = list(
         type = "string"
       )
