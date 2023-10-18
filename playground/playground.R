@@ -13,40 +13,40 @@ load_collection <- function(id, spatial_extent, temporal_extent, bands = null, p
   if(id == "SENTINEL-2-L2A"){
     source_id = "AWS"
   }else{
-    source_id = "MPC"
+    message("The image collection is defined is not suppported.")
   }
-  
-  # Temporal extent 
+
+  # Temporal extent
   t0 = temporal_extent[[1]]
   t1 = temporal_extent[[2]]
-  
+
   # spatial extent  of roi
   xmin = as.numeric(spatial_extent$west)
   ymin = as.numeric(spatial_extent$south)
   xmax = as.numeric(spatial_extent$east)
   ymax = as.numeric(spatial_extent$north)
-  
+
   # roi
   roi_bounds = c(
     lon_min = xmin, lat_min = ymin,
     lon_max = xmax, lat_max = ymax
   )
   #get irregular data cube from ARD image collection
-  cube <- sits::sits_cube(source = source_id, 
-                          collection = id, 
-                          roi = roi_bounds, 
-                          bands = bands, 
-                          start_date = t0, 
+  cube <- sits::sits_cube(source = source_id,
+                          collection = id,
+                          roi = roi_bounds,
+                          bands = bands,
+                          start_date = t0,
                           end_date = t1)
   return(cube)
 }
 
 # openeo regularize data cubes
 ml_regularize_data_cube <- function(data, period, resolution){
-  cube <- sits::sits_regularize(cube = data, 
-                                output_dir = tempdir(), 
+  cube <- sits::sits_regularize(cube = data,
+                                output_dir = tempdir(),
                                 period = period,
-                                res = resolution, 
+                                res = resolution,
                                 multicores = CORES)
   return(cube)
 }
@@ -60,7 +60,7 @@ ml_fit_class_random_forest <- function(predictors, target, max_variables, num_tr
 
 # openeo ml prediction
 ml_predict <- function(data, model, dimensions){
-  
+
 }
 
 # --------------------------------------------#

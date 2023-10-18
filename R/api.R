@@ -275,13 +275,13 @@ addEndpoint = function() {
 
 # assign data collection
   Session$assignData(SENTINEL_2_L2A)
-  Session$assignData(sentinel_s2_l2a_cogs)
 
 # assign data cube processes
   Session$assignProcess(load_collection)
+  Session$assignProcess(ml_regularize_data_cube)
   Session$assignProcess(save_result)
 
- # assign math processes 
+ # assign math processes
   #Session$assignProcess(min)
   #Session$assignProcess(median)
   #Session$assignProcess(mean)

@@ -179,10 +179,3 @@ SENTINEL_2_L2A <- Collection$new(
   title = "Sentinel 2 L2A",
   description = "Sentinel-2a and Sentinel-2b imagery, processed to Level 2A (Surface Reflectance)."
 )
-
-#'sentinel-s2-l2a-cogs
-sentinel_s2_l2a_cogs <- Collection$new(
-  id = "sentinel-s2-l2a-cogs",
-  title = "Sentinel 2 L2A COGs",
-  description = "Sentinel-2a and Sentinel-2b imagery, processed to Level 2A (Surface Reflectance) and converted to Cloud-Optimized GeoTIFFs."
-)
