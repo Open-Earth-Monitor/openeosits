@@ -152,6 +152,7 @@ load_collection <- Process$new(
       start_date = t0,
       end_date = t1
     )
+    message("load collection done.")
     return(cube)
   }
 )
@@ -183,7 +184,7 @@ ml_regularize_data_cube <- Process$new(
       )
     ),
     Parameter$new(
-      name = "period",
+      name = "resolution",
       description = "Resamples the data cube to the target resolution, which can be specified either as separate values for x and y or as a single value for both axes.",
       schema = list(
         type = "number"
@@ -202,6 +203,7 @@ ml_regularize_data_cube <- Process$new(
                                   period = period,
                                   res = resolution,
                                   multicores = CORES)
+    message("data cube regularization done.")
     return(cube)
   }
 )
