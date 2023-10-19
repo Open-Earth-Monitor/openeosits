@@ -10,5 +10,5 @@ datacube_schema()
 datacube list
 }
 \description{
-Return a list with datacube description and schema
+Return a list with data cube description and schema
 }
