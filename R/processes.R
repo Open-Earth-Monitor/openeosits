@@ -208,6 +208,66 @@ ml_regularize_data_cube <- Process$new(
   }
 )
 
+#' fit random forest classification
+ml_fit_class_random_forest <- Process$new(
+  id = "ml_fit_class_random_forest",
+  description = "Executes the fit of a random forest classification based on training data. The process does not include a separate split of the data in test, validation and training data.
+  The Random Forest classification model is based on the approach by Breiman (2001).",
+  categories = as.array("machine learning"),
+  summary = "Train a random forest classification model",
+  parameters = list(
+    Parameter$new(
+      name = "predictors",
+      description = "The predictors for the classification model as a vector data cube. Aggregated to the features (vectors) of the target input variable.",
+      schema = list(
+        type = "object",
+        subtype = "datacube"
+      )
+    ),
+    Parameter$new(
+      name = "target",
+      description = "The training sites for the classification model as a vector data cube. This is associated with the target variable for the Random Forest model. The geometry has to associated with a value to predict (e.g. fractional forest canopy cover).",
+      schema = list(
+        type = "object",
+        subtype = "datacube"
+      )
+    ),
+    Parameter$new(
+      name = "max_variables",
+      description = "Specifies how many split variables will be used at a node.The following options are available:
+      - *integer*: The given number of variables are considered for each split.
+      - `all`: All variables are considered for each split.
+      - `log2`: The logarithm with base 2 of the number of variables are considered for each split.
+      - `onethird`: A third of the number of variables are considered for each split.
+      - `sqrt`: The square root of the number of variables are considered for each split. This is often the default for classification.",
+      schema = list(
+        type = list("integer", "string")
+      )
+    ),
+    Parameter$new(
+      name = "num_trees",
+      description = "The number of trees build within the Random Forest classification.",
+      schema = list(
+        type = "integer"
+      ),
+      optional = TRUE
+    ),
+    Parameter$new(
+      name = "seed",
+      description = "A randomization seed to use for the random sampling in training. If not given or `null`, no seed is used and results may differ on subsequent use.",
+      schema = list(
+        type = list("integer", NULL)
+      ),
+      optional = TRUE
+    )
+  ),
+  returns = eo_datacube,
+  operation = function(predictors, target, max_variables = "sqrt", num_trees = 100, seed = NULL, job) {
+  # TO DO
+  model <- sits::sits_rfor()
+  return(model)
+  }
+)
 
 #' save result
 save_result <- Process$new(

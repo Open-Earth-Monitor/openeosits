@@ -279,6 +279,7 @@ addEndpoint = function() {
 # assign data cube processes
   Session$assignProcess(load_collection)
   Session$assignProcess(ml_regularize_data_cube)
+  Session$assignProcess(ml_fit_class_random_forest)
   Session$assignProcess(save_result)
 
  # assign math processes
