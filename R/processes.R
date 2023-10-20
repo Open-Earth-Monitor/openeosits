@@ -256,7 +256,7 @@ ml_fit_class_random_forest <- Process$new(
       name = "seed",
       description = "A randomization seed to use for the random sampling in training. If not given or `null`, no seed is used and results may differ on subsequent use.",
       schema = list(
-        type = list("integer", NULL)
+        type = list("integer", "null")
       ),
       optional = TRUE
     )
