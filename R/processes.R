@@ -30,7 +30,6 @@ schema_format <- function(type, subtype = NULL, items = NULL) {
 }
 
 
-
 #' datacube_schema
 #' @description Return a list with data cube description and schema
 #'
@@ -45,6 +44,21 @@ datacube_schema <- function() {
 
 #' return object for the processes
 eo_datacube <- datacube_schema()
+
+#' ml datacube_schema
+#' @description Return a list with ml data cube description and schema
+#'
+#' @return datacube list
+ml_datacube_schema <- function() {
+  info <- list(
+    description = "A data cube with the predicted values. It removes the specified dimensions and adds new dimension for the predicted values. It has the name `predictions` and is of type `other`. If a single value is returned, the dimension has a single label with name `0`.",
+    schema = list(type = "object", subtype = "datacube")
+  )
+  return(info)
+}
+
+#' return object from ml pedict process
+eo_ml_datacube <- ml_datacube_schema()
 
 
 #' load collection
@@ -301,8 +315,8 @@ ml_predict <- Process$new(
       )
     )
   ),
-  returns = eo_datacube,
-  operation = function(data, model, dimensions = "bands", job) {
+  returns = eo_ml_datacube,
+  operation = function(data, model, dimensions = c("bands", "time"), job) {
 
     #if (dimensions != "bands"){
     #  stop("The dimensions specified is not supported, only bands dimensions are supported currently.")
