@@ -269,6 +269,48 @@ ml_fit_class_random_forest <- Process$new(
   }
 )
 
+
+#' ml predict
+ml_predict <- Process$new(
+  id = "ml_predict",
+  description = "Applies a machine learning model to a data cube of input features and returns the predicted values.",
+  categories = as.array("machine learning"),
+  summary = "Predict using ML",
+  parameters = list(
+    Parameter$new(
+      name = "data",
+      description = "The data cube containing the input features.",
+      schema = list(
+        type = "object",
+        subtype = "datacube"
+      )
+    ),
+    Parameter$new(
+      name = "model",
+      description = "A ML model that was trained with one of the ML training processes such as ``ml_fit_class_random_forest()``.",
+      schema = list(
+        type = "object",
+        subtype = "ml-model"
+      )
+    ),
+    Parameter$new(
+      name = "dimensions",
+      description = "Zero or more dimensions that will be reduced by the model. Fails with a `DimensionNotAvailable` exception if one of the specified dimensions does not exist.",
+      schema = list(
+        type = "array"
+      )
+    )
+  ),
+  returns = eo_datacube,
+  operation = function(data, model, dimensions = "bands", job) {
+
+    #if (dimensions != "bands"){
+    #  stop("The dimensions specified is not supported, only bands dimensions are supported currently.")
+    #}
+    # TO DO
+  }
+)
+
 #' save result
 save_result <- Process$new(
   id = "save_result",
