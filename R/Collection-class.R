@@ -33,10 +33,6 @@ Collection <- R6Class(
     #' @param ImageCollection Collection of class 'image collection'
     #'
     setCollection = function(ImageCollection) {
-      if (! gdalcubes:::is.image_collection(ImageCollection)) {
-        stop("Assigned data is not an image collection")
-      }
-
       private$imageCollection = ImageCollection
       self$setMetadata()
     },
@@ -55,7 +51,7 @@ Collection <- R6Class(
 
       private$metadata = list(
         extent = extent(private$imageCollection),
-        bands = gdalcubes:::libgdalcubes_image_collection_info(private$imageCollection)$bands$name
+        bands = NULL #gdalcubes:::libgdalcubes_image_collection_info(private$imageCollection)$bands$name
       )
     },
 
@@ -173,7 +169,7 @@ is.Collection = function(obj) {
 }
 
 #' collections:
-#'sentinel-s2-l2a
+#'sentinel-2-l2a
 SENTINEL_2_L2A <- Collection$new(
   id = "SENTINEL-2-L2A",
   title = "Sentinel 2 L2A",
