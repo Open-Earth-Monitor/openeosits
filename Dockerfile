@@ -1,10 +1,30 @@
 FROM r-base:4.3.0
 
-# Install software dependencies
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common cmake g++ git supervisor wget
+# Set the timezone
 ENV TZ=Etc/UTC
-RUN apt-get install  -y libnetcdf-dev libcurl4-openssl-dev libcpprest-dev doxygen graphviz  libsqlite3-dev libboost-all-dev
-RUN apt-get update && apt-get install -y libproj-dev libgdal-dev
+
+# Install software dependencies
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    software-properties-common \
+    cmake \
+    g++ \
+    git \
+    supervisor \
+    wget \
+    libnetcdf-dev \
+    libcurl4-openssl-dev \
+    libcpprest-dev \
+    doxygen \
+    graphviz \
+    libsqlite3-dev \
+    libboost-all-dev \
+    libproj-dev \
+    libgdal-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install FreeType
+RUN apt-get update && apt-get install -y libfreetype6-dev
+
 
 # Install devtools and remotes
 RUN R -e "install.packages(c('devtools', 'remotes'))"
