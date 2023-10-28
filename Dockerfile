@@ -1,4 +1,4 @@
-FROM r-base:4.3.0
+FROM r-base:4.3.1
 
 # Set the timezone
 ENV TZ=Etc/UTC
@@ -19,12 +19,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libsqlite3-dev \
     libboost-all-dev \
     libproj-dev \
-    libgdal-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install FreeType
-RUN apt-get update && apt-get install -y libfreetype6-dev
-
+    libgdal-dev
 
 # Install devtools and remotes
 RUN R -e "install.packages(c('devtools', 'remotes'))"
