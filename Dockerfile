@@ -21,6 +21,9 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libproj-dev \
     libgdal-dev
 
+# Install libfreetype6
+RUN apt-get install -y libfreetype6-dev
+
 # Install devtools and remotes
 RUN R -e "install.packages(c('devtools', 'remotes'))"
 
