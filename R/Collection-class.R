@@ -51,7 +51,7 @@ Collection <- R6Class(
 
       private$metadata = list(
         extent = extent(private$imageCollection),
-        bands = NULL #gdalcubes:::libgdalcubes_image_collection_info(private$imageCollection)$bands$name
+        bands = list() #gdalcubes:::libgdalcubes_image_collection_info(private$imageCollection)$bands$name
       )
     },
 

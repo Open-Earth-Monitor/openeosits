@@ -6,8 +6,8 @@ ENV TZ=Etc/UTC
 RUN apt-get install  -y libnetcdf-dev libcurl4-openssl-dev libcpprest-dev doxygen graphviz  libsqlite3-dev libboost-all-dev
 RUN apt-get update && apt-get install -y libproj-dev libgdal-dev
 
-# Install devtools package
-RUN R -e "install.packages('devtools')"
+# Install devtools and remotes
+RUN R -e "install.packages(c('devtools', 'remotes'))"
 
 # Install gdalcubes package
 RUN R -e "install.packages('gdalcubes')"

@@ -4,7 +4,7 @@
 \name{SENTINEL_2_L2A}
 \alias{SENTINEL_2_L2A}
 \title{collections:
-sentinel-s2-l2a}
+sentinel-2-l2a}
 \format{
 An object of class \code{Collection} (inherits from \code{R6}) of length 13.
 }
@@ -13,6 +13,6 @@ SENTINEL_2_L2A
 }
 \description{
 collections:
-sentinel-s2-l2a
+sentinel-2-l2a
 }
 \keyword{datasets}
