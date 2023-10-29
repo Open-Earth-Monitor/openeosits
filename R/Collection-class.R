@@ -22,10 +22,9 @@ Collection <- R6Class(
     #' @param description Short description of the collection
     #'
     initialize = function(id = NA, title = NA, description = NA) {
-
-      self$id = id
-      self$title = title
-      self$description = description
+      self$id <- id
+      self$title <- title
+      self$description <- description
     },
 
     #' @description Add image collection to the collection class object
@@ -33,7 +32,11 @@ Collection <- R6Class(
     #' @param ImageCollection Collection of class 'image collection'
     #'
     setCollection = function(ImageCollection) {
-      private$imageCollection = ImageCollection
+      if (!gdalcubes:::is.image_collection(ImageCollection)) {
+        stop("Assigned data is not an image collection")
+      }
+
+      private$imageCollection <- ImageCollection
       self$setMetadata()
     },
 
@@ -48,10 +51,9 @@ Collection <- R6Class(
     #' @description add extent and bands to the metadata of the collection object
     #'
     setMetadata = function() {
-
-      private$metadata = list(
+      private$metadata <- list(
         extent = extent(private$imageCollection),
-        bands = list() #gdalcubes:::libgdalcubes_image_collection_info(private$imageCollection)$bands$name
+        bands = gdalcubes:::libgdalcubes_image_collection_info(private$imageCollection)$bands$name
       )
     },
 
@@ -68,12 +70,11 @@ Collection <- R6Class(
     #' @return converted bandlist
     #'
     getEoBands = function() {
-
-      list = list()
-      bands = as.list(self$getMetadata()$bands)
-      list = lapply(bands, function(x) {
-               append(list,  list(name = x))
-             })
+      list <- list()
+      bands <- as.list(self$getMetadata()$bands)
+      list <- lapply(bands, function(x) {
+        append(list, list(name = x))
+      })
       return(list)
     },
 
@@ -88,29 +89,31 @@ Collection <- R6Class(
         license = "proprietary",
         extent = list(
           spatial = list(
-            bbox = list(list(self$getMetadata()$extent$left, self$getMetadata()$extent$bottom,
-            self$getMetadata()$extent$right, self$getMetadata()$extent$top))
+            bbox = list(list(
+              self$getMetadata()$extent$left, self$getMetadata()$extent$bottom,
+              self$getMetadata()$extent$right, self$getMetadata()$extent$top
+            ))
           ),
           temporal = list(
             interval = list(list(self$getMetadata()$extent$t0, self$getMetadata()$extent$t1))
           )
         ),
-       links = list(
-         list(
-           rel = "self",
-           href = paste(Session$getConfig()$base_url, "collections", self$id, sep = "/")
-         ),
-         list(
-           rel = "parent",
-           href = paste(Session$getConfig()$base_url, "collections", sep = "/")
-         ))
+        links = list(
+          list(
+            rel = "self",
+            href = paste(Session$getConfig()$base_url, "collections", self$id, sep = "/")
+          ),
+          list(
+            rel = "parent",
+            href = paste(Session$getConfig()$base_url, "collections", sep = "/")
+          )
+        )
       )
     },
 
     #' @description List extended metadata for the collection handler
     #'
     collectionInfoExtended = function() {
-
       list(
         stac_version = Session$getConfig()$stac_version,
         stac_extensions = list(Session$getConfig()$stac_extensions),
@@ -120,8 +123,10 @@ Collection <- R6Class(
         license = "proprietary",
         extent = list(
           spatial = list(
-            bbox = list(list(self$getMetadata()$extent$left, self$getMetadata()$extent$bottom,
-                             self$getMetadata()$extent$right, self$getMetadata()$extent$top))
+            bbox = list(list(
+              self$getMetadata()$extent$left, self$getMetadata()$extent$bottom,
+              self$getMetadata()$extent$right, self$getMetadata()$extent$top
+            ))
           ),
           temporal = list(
             interval = list(list(self$getMetadata()$extent$t0, self$getMetadata()$extent$t1))
@@ -129,20 +134,18 @@ Collection <- R6Class(
         ),
         links = list(list(
           rel = "root",
-          href = paste(Session$getConfig()$base_url, "collections", sep = "/"))
-        ),
+          href = paste(Session$getConfig()$base_url, "collections", sep = "/")
+        )),
         "cube:dimensions" = list(
           x = list(
             type = "spatial",
             axis = "x",
-            extent = list(self$getMetadata()$extent$left, self$getMetadata()$extent$right
-            )
+            extent = list(self$getMetadata()$extent$left, self$getMetadata()$extent$right)
           ),
           y = list(
             type = "spatial",
             axis = "y",
-            extent = list(self$getMetadata()$extent$bottom, self$getMetadata()$extent$top
-            )
+            extent = list(self$getMetadata()$extent$bottom, self$getMetadata()$extent$top)
           ),
           t = list(
             type = "temporal",
@@ -153,7 +156,7 @@ Collection <- R6Class(
             values = list(self$getMetadata()$bands)
           )
         ),
-        summaries = list(constellation = list(""), 'eo:bands' = self$getEoBands())
+        summaries = list(constellation = list(""), "eo:bands" = self$getEoBands())
       )
     }
   ),
@@ -164,12 +167,13 @@ Collection <- R6Class(
 )
 
 #' @export
-is.Collection = function(obj) {
+is.Collection <- function(obj) {
   return("Collection" %in% class(obj))
 }
 
+
 #' collections:
-#'sentinel-2-l2a
+#' sentinel-2-l2a
 SENTINEL_2_L2A <- Collection$new(
   id = "SENTINEL-2-L2A",
   title = "Sentinel 2 L2A",

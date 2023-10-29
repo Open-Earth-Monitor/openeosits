@@ -1,8 +1,3 @@
-# Install package from GitHub
-if(!require(openeosits)){
-  message("openeosits not installed, installing....")
-  remotes::install_github("Open-Earth-Monitor/openeosits", ref = "develop", dependencies=TRUE, force = TRUE)
-}
 # Start service
 library(openeosits)
 
