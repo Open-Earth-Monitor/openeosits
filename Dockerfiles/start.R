@@ -6,8 +6,8 @@ aws.host <-Sys.getenv("AWSHOST")
 if (aws.host == ""){
   aws.host = NULL
 }else{
-  message("AWS host port id is:")
-  message(aws.host)
+  message("AWS host port id is:", aws.host)
+
 }
 
 
