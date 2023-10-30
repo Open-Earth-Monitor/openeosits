@@ -325,6 +325,39 @@ ml_predict <- Process$new(
   }
 )
 
+#' save ml model
+save_ml_model <- Process$new(
+  id = "save_ml_model",
+  description = "Saves a machine learning model as part of a batch job.The model will be accompanied by a separate STAC Item that implements the [ml-model extension](https://github.com/stac-extensions/ml-model).",
+  categories = as.array("machine learning", "import"),
+  summary = "Save a ML model",
+  parameters = list(
+    Parameter$new(
+      name = "data",
+      description = "The data to save.",
+      schema = list(
+        type = "object",
+        subtype = "ml-model"
+      )
+    ),
+    Parameter$new(
+      name = "options",
+      description = "Additional parameters to create the file(s).",
+      schema = list(
+        type = "object"
+      ),
+      optional = TRUE
+    )
+  ),
+  returns = list(
+    description = "false if saving failed, true otherwise.",
+    schema = list(type = "boolean")
+  ),
+  operation = function(data, format, options = NULL, job) {
+    # TO DO
+  }
+)
+
 #' save result
 save_result <- Process$new(
   id = "save_result",
