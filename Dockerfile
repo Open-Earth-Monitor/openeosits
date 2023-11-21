@@ -9,15 +9,15 @@ RUN apt-get update && apt-get install -y libproj-dev libgdal-dev
 # Install devtools package
 RUN R -e "install.packages('devtools')"
 
-# Install gdalcubes package
-RUN R -e "install.packages('gdalcubes')"
-
 # Install sits package
 RUN R -e "install.packages('sits')"
 
 # Install other necessary packages
 RUN apt-get install -y libsodium-dev libudunits2-dev
 RUN R -e "install.packages(c('plumber', 'useful', 'ids', 'R6', 'sf', 'stars','rstac','bfast', 'geojsonsf', 'torch'))"
+
+# Install gdalcubes package
+RUN R -e "install.packages('gdalcubes')"
 
 # Create directories
 RUN mkdir -p /opt/dockerfiles/ && mkdir -p /var/openeo/workspace/ && mkdir -p /var/openeo/workspace/data/
