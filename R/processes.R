@@ -198,11 +198,13 @@ ml_regularize_data_cube <- Process$new(
     CORES <- parallel::detectCores()
 
     #' regularize irregular data cubes using sits
-    cube <- sits::sits_regularize(cube = data,
-                                  output_dir = tempdir(),
-                                  period = period,
-                                  res = resolution,
-                                  multicores = CORES)
+    cube <- sits::sits_regularize(
+      cube = data,
+      output_dir = tempdir(),
+      period = period,
+      res = resolution,
+      multicores = CORES
+    )
     message("data cube regularization done.")
     return(cube)
   }
@@ -263,9 +265,15 @@ ml_fit_class_random_forest <- Process$new(
   ),
   returns = eo_datacube,
   operation = function(predictors, target, max_variables = "sqrt", num_trees = 100, seed = NULL, job) {
-  # TO DO
-  model <- sits::sits_rfor()
-  return(model)
+    # TO DO , samples need to be a union of predictors and targets
+    # samples <- predictors, target
+    samples <- predictors
+    # model
+    model <- sits::sits_train(
+      samples = samples,
+      ml_method = sits_rfor(num_trees = num_trees)
+    )
+    return(model)
   }
 )
 
