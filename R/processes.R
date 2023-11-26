@@ -30,7 +30,6 @@ schema_format <- function(type, subtype = NULL, items = NULL) {
 }
 
 
-
 #' datacube_schema
 #' @description Return a list with data cube description and schema
 #'
@@ -45,6 +44,21 @@ datacube_schema <- function() {
 
 #' return object for the processes
 eo_datacube <- datacube_schema()
+
+#' ml datacube_schema
+#' @description Return a list with ml data cube description and schema
+#'
+#' @return datacube list
+ml_datacube_schema <- function() {
+  info <- list(
+    description = "A data cube with the predicted values. It removes the specified dimensions and adds new dimension for the predicted values. It has the name `predictions` and is of type `other`. If a single value is returned, the dimension has a single label with name `0`.",
+    schema = list(type = "object", subtype = "datacube")
+  )
+  return(info)
+}
+
+#' return object from ml pedict process
+eo_ml_datacube <- ml_datacube_schema()
 
 
 #' load collection
@@ -258,7 +272,7 @@ ml_fit_class_random_forest <- Process$new(
       name = "seed",
       description = "A randomization seed to use for the random sampling in training. If not given or `null`, no seed is used and results may differ on subsequent use.",
       schema = list(
-        type = list("integer", NULL)
+        type = list("integer", "null")
       ),
       optional = TRUE
     )
@@ -274,6 +288,81 @@ ml_fit_class_random_forest <- Process$new(
       ml_method = sits_rfor(num_trees = num_trees)
     )
     return(model)
+  }
+)
+
+
+#' ml predict
+ml_predict <- Process$new(
+  id = "ml_predict",
+  description = "Applies a machine learning model to a data cube of input features and returns the predicted values.",
+  categories = as.array("machine learning"),
+  summary = "Predict using ML",
+  parameters = list(
+    Parameter$new(
+      name = "data",
+      description = "The data cube containing the input features.",
+      schema = list(
+        type = "object",
+        subtype = "datacube"
+      )
+    ),
+    Parameter$new(
+      name = "model",
+      description = "A ML model that was trained with one of the ML training processes such as ``ml_fit_class_random_forest()``.",
+      schema = list(
+        type = "object",
+        subtype = "ml-model"
+      )
+    ),
+    Parameter$new(
+      name = "dimensions",
+      description = "Zero or more dimensions that will be reduced by the model. Fails with a `DimensionNotAvailable` exception if one of the specified dimensions does not exist.",
+      schema = list(
+        type = "array"
+      )
+    )
+  ),
+  returns = eo_ml_datacube,
+  operation = function(data, model, dimensions = c("bands", "time"), job) {
+
+    #if (dimensions != "bands"){
+    #  stop("The dimensions specified is not supported, only bands dimensions are supported currently.")
+    #}
+    # TO DO
+  }
+)
+
+#' save ml model
+save_ml_model <- Process$new(
+  id = "save_ml_model",
+  description = "Saves a machine learning model as part of a batch job.The model will be accompanied by a separate STAC Item that implements the [ml-model extension](https://github.com/stac-extensions/ml-model).",
+  categories = as.array("machine learning", "import"),
+  summary = "Save a ML model",
+  parameters = list(
+    Parameter$new(
+      name = "data",
+      description = "The data to save.",
+      schema = list(
+        type = "object",
+        subtype = "ml-model"
+      )
+    ),
+    Parameter$new(
+      name = "options",
+      description = "Additional parameters to create the file(s).",
+      schema = list(
+        type = "object"
+      ),
+      optional = TRUE
+    )
+  ),
+  returns = list(
+    description = "false if saving failed, true otherwise.",
+    schema = list(type = "boolean")
+  ),
+  operation = function(data, format, options = NULL, job) {
+    # TO DO
   }
 )
 

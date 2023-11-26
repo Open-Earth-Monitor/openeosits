@@ -18,6 +18,7 @@ orig <- data |> tidyr::nest(
   .key = "time_series"
 )
 
+
 ### function to convert 'Index' column to Date
 convert_index_to_date <- function(data) {
   data |> mutate(Index = as.Date(Index))
@@ -32,5 +33,6 @@ orig <- orig |>
   )
 
 orig <- structure(orig, class = c("sits", class(orig)))
+
 
 all.equal(orig, samples_prodes_4classes)
