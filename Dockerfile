@@ -1,48 +1,35 @@
-# Use a stable Ubuntu version
-FROM rocker/rstudio:4.3
+FROM r-base:4.3.0
 
-# Install essential tools
-ENV DEBIAN_FRONTEND=noninteractive
+# Install software dependencies
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common cmake g++ git supervisor wget
 ENV TZ=Etc/UTC
+RUN apt-get install  -y libnetcdf-dev libcurl4-openssl-dev libcpprest-dev doxygen graphviz  libsqlite3-dev libboost-all-dev
+RUN apt-get update && apt-get install -y libproj-dev libgdal-dev
 
-RUN apt-get update && apt-get install -y \
-    software-properties-common \
-    cmake \
-    g++ \
-    git \
-    supervisor \
-    wget
+RUN apt-get install -y libfreetype-dev
 
-# Install dependencies
-RUN apt-get install -y \
-    libnetcdf-dev \
-    libcurl4-openssl-dev \
-    libcpprest-dev \
-    doxygen \
-    graphviz \
-    libsqlite3-dev \
-    libboost-all-dev
+# Install devtools package
+RUN R -e "install.packages('devtools')"
 
-# Install devtools in R
-RUN Rscript -e "install.packages(c('devtools'))"
+# Install gdalcubes package
+RUN R -e "install.packages('gdalcubes')"
 
-# Install additional R packages
+# Install sits package
+RUN R -e "install.packages('sits')"
+
+# Install other necessary packages
 RUN apt-get install -y libsodium-dev libudunits2-dev
-RUN Rscript -e "install.packages(c('plumber', 'useful', 'ids', 'R6', 'sf', 'rstac','bfast', 'stars', 'geojsonsf'))"
-RUN Rscript -e "install.packages('sits')"
-RUN Rscript -e "install.packages('gdalcubes')"
+RUN R -e "install.packages(c('plumber', 'useful', 'ids', 'R6', 'sf', 'stars','rstac','bfast', 'geojsonsf', 'torch'))"
 
 # Create directories
-RUN mkdir -p /opt/dockerfiles/ \
-    && mkdir -p /var/openeo/workspace/ \
-    && mkdir -p /var/openeo/workspace/data/
+RUN mkdir -p /opt/dockerfiles/ && mkdir -p /var/openeo/workspace/ && mkdir -p /var/openeo/workspace/data/
 
-# Install local packages
+# Install packages from the local directory
 COPY ./ /opt/dockerfiles/
-RUN Rscript -e "remotes::install_local('/opt/dockerfiles', dependencies=TRUE)"
+RUN R -e "remotes::install_local('/opt/dockerfiles', dependencies = TRUE)"
 
-# Set the startup command
-CMD ["R", "-q", "--no-save", "-f /opt/dockerfiles/Dockerfiles/start.R"]
+# CMD or entrypoint for startup
+CMD ["R", "-q", "--no-save", "-f", "/opt/dockerfiles/Dockerfiles/start.R"]
 
-# Expose port
+# Expose the port
 EXPOSE 8000
