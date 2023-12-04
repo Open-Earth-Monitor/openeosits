@@ -63,8 +63,8 @@
     },
     {
       "type": "text",
-      "version": 49,
-      "versionNonce": 358046628,
+      "version": 55,
+      "versionNonce": 342467108,
       "isDeleted": false,
       "id": "1ys96ViBMpJWU8PakRFkA",
       "fillStyle": "hachure",
@@ -93,16 +93,16 @@
           "type": "arrow"
         }
       ],
-      "updated": 1701702689660,
+      "updated": 1701704393660,
       "link": null,
       "locked": false,
       "fontSize": 36,
       "fontFamily": 1,
-      "text": " OpenEOcubes\nRESTful service",
+      "text": " OpenEO-SITS\nRESTful service",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": " OpenEOcubes\nRESTful service",
+      "originalText": " OpenEO-SITS\nRESTful service",
       "lineHeight": 1.25,
       "baseline": 77
     },
@@ -661,8 +661,8 @@
     },
     {
       "type": "arrow",
-      "version": 380,
-      "versionNonce": 1483195044,
+      "version": 392,
+      "versionNonce": 930769188,
       "isDeleted": false,
       "id": "_AxVpUK1YDrKsdxYlvwI2",
       "fillStyle": "hachure",
@@ -671,12 +671,12 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 1273.12109375,
-      "y": 545.4410195537793,
+      "x": 1270.765169590808,
+      "y": 544.8249265758711,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "#a5d8ff",
-      "width": 215.890625,
-      "height": 56.45712216148763,
+      "width": 218.246549159192,
+      "height": 57.07321513939576,
       "seed": 1781117789,
       "groupIds": [],
       "frameId": null,
@@ -684,7 +684,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1701702690157,
+      "updated": 1701704393662,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -706,8 +706,8 @@
           0
         ],
         [
-          215.890625,
-          56.45712216148763
+          218.246549159192,
+          57.07321513939576
         ]
       ]
     },
