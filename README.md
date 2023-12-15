@@ -49,3 +49,12 @@ If there are new changes on the images or Dockerfiles:
 ```bash
 docker-compose build --no-cache && docker-compose up
 ```
+
+## Development Notes:
+While developing, you can skip rebuilding the docker container everytime. Instead you can run the server locally. Just run "Rscript startLocal.R" inside this directory.
+
+This will compile this Repository as a R Package and start the server.
+
+```bash
+Rscript startLocal.R
+```
