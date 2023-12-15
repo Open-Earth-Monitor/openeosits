@@ -29,7 +29,7 @@ COPY ./ /opt/dockerfiles/
 RUN R -e "remotes::install_local('/opt/dockerfiles', dependencies = TRUE)"
 
 # CMD or entrypoint for startup
-CMD ["R", "-q", "--no-save", "-f", "/opt/dockerfiles/Dockerfiles/start.R"]
+CMD ["R", "-q", "--no-save", "-f", "/opt/dockerfiles/startProduction.R"]
 
 # Expose the port
 EXPOSE 8000
